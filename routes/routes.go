@@ -3,6 +3,7 @@ package routes
 import (
 	"blog/controllers"
 	"blog/middleware"
+
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 )
