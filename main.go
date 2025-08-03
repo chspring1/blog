@@ -2,22 +2,17 @@ package main
 
 import (
 	"log"
-	"net/http"
 
-	"github.com/gin-gonic/gin"
+	"blog/database"
+	"blog/routes"
 )
 
 func main() {
-	// 创建Gin引擎
-	r := gin.Default()
+	// 初始化数据库
+	database.InitDB()
 
-	// 简单的健康检查路由
-	r.GET("/health", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"status":  "ok",
-			"message": "博客系统运行正常",
-		})
-	})
+	// 设置路由
+	r := routes.SetupRoutes()
 
 	// 启动服务器
 	port := "8080"

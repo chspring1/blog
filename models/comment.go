@@ -17,6 +17,10 @@ type Comment struct {
 	ParentID  *uint          `json:"parent_id" gorm:"index"`
 	Parent    *Comment       `json:"parent,omitempty" gorm:"foreignKey:ParentID"`
 	Replies   []Comment      `json:"replies,omitempty" gorm:"foreignKey:ParentID"`
+	Status    int            `json:"status" gorm:"default:1;comment:1-正常 0-隐藏"`
+	LikeCount int            `json:"like_count" gorm:"default:0"`
+	IPAddress string         `json:"ip_address" gorm:"size:45"`
+	UserAgent string         `json:"user_agent" gorm:"size:500"`
 	CreatedAt time.Time      `json:"created_at"`
 	UpdatedAt time.Time      `json:"updated_at"`
 	DeletedAt gorm.DeletedAt `json:"-" gorm:"index"`
@@ -30,6 +34,8 @@ type CommentResponse struct {
 	UserID    uint      `json:"user_id"`
 	Username  string    `json:"username"`
 	ParentID  *uint     `json:"parent_id"`
+	Status    int       `json:"status"`
+	LikeCount int       `json:"like_count"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
@@ -43,6 +49,8 @@ func (c *Comment) ToResponse() CommentResponse {
 		UserID:    c.UserID,
 		Username:  c.User.Username,
 		ParentID:  c.ParentID,
+		Status:    c.Status,
+		LikeCount: c.LikeCount,
 		CreatedAt: c.CreatedAt,
 		UpdatedAt: c.UpdatedAt,
 	}

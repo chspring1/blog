@@ -32,19 +32,24 @@ type Post struct {
 
 // PostResponse 博客文章响应结构
 type PostResponse struct {
-	ID          uint      `json:"id"`
-	Title       string    `json:"title"`
-	Content     string    `json:"content"`
-	Summary     string    `json:"summary"`
-	Status      int       `json:"status"`
-	ViewCount   uint      `json:"view_count"`
-	UserID      uint      `json:"user_id"`
-	Username    string    `json:"username"`
-	CategoryID  *uint     `json:"category_id"`
-	Category    string    `json:"category"`
-	Tags        []string  `json:"tags"`
-	CreatedAt   time.Time `json:"created_at"`
-	UpdatedAt   time.Time `json:"updated_at"`
+	ID           uint       `json:"id"`
+	Title        string     `json:"title"`
+	Content      string     `json:"content"`
+	Summary      string     `json:"summary"`
+	Excerpt      string     `json:"excerpt"`
+	Status       int        `json:"status"`
+	ViewCount    uint       `json:"view_count"`
+	CommentCount int        `json:"comment_count"`
+	LikeCount    int        `json:"like_count"`
+	IsTop        int        `json:"is_top"`
+	UserID       uint       `json:"user_id"`
+	Username     string     `json:"username"`
+	CategoryID   *uint      `json:"category_id"`
+	Category     string     `json:"category"`
+	Tags         []string   `json:"tags"`
+	PublishedAt  *time.Time `json:"published_at"`
+	CreatedAt    time.Time  `json:"created_at"`
+	UpdatedAt    time.Time  `json:"updated_at"`
 }
 
 // ToResponse 转换为响应格式
@@ -60,19 +65,24 @@ func (p *Post) ToResponse() PostResponse {
 	}
 
 	return PostResponse{
-		ID:         p.ID,
-		Title:      p.Title,
-		Content:    p.Content,
-		Summary:    p.Summary,
-		Status:     p.Status,
-		ViewCount:  p.ViewCount,
-		UserID:     p.UserID,
-		Username:   p.User.Username,
-		CategoryID: p.CategoryID,
-		Category:   category,
-		Tags:       tags,
-		CreatedAt:  p.CreatedAt,
-		UpdatedAt:  p.UpdatedAt,
+		ID:           p.ID,
+		Title:        p.Title,
+		Content:      p.Content,
+		Summary:      p.Summary,
+		Excerpt:      p.Excerpt,
+		Status:       p.Status,
+		ViewCount:    p.ViewCount,
+		CommentCount: p.CommentCount,
+		LikeCount:    p.LikeCount,
+		IsTop:        p.IsTop,
+		UserID:       p.UserID,
+		Username:     p.User.Username,
+		CategoryID:   p.CategoryID,
+		Category:     category,
+		Tags:         tags,
+		PublishedAt:  p.PublishedAt,
+		CreatedAt:    p.CreatedAt,
+		UpdatedAt:    p.UpdatedAt,
 	}
 }
 
